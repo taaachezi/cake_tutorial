@@ -104,7 +104,7 @@ class BookmarksTable extends Table
     public function findTagged(Query $query, array $options)
     {
         $bookmarks = $this->find()
-            ->select(['id','url','title','discription']);
+            ->select(['id','url','title','description']);
         if(empty($options['tags'])){
             $bookmarks
                 ->leftJoinWith('Tags')
@@ -112,7 +112,7 @@ class BookmarksTable extends Table
         } else {
             $bookmarks
                 ->innerJoinWith('Tags')
-                ->wher(['Tags.title IN' => $options['tags']]);
+                ->where(['Tags.title IN' => $options['tags']]);
         }
         return $bookmarks->group(['Bookmarks.id']);
     }

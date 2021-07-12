@@ -11,6 +11,23 @@ namespace App\Controller;
  */
 class BookmarksController extends AppController
 {
+
+    public function isAuthorized($user){
+        $action = $this->request->getParam('action');
+        if(in_array($action, ['index', 'add', 'tags'])){
+            return true;
+        }
+        if(!$this->request->getParam('pass.0')){
+            return false;
+        }
+
+        $id = $this->request->getParam('pass.0');
+        $bookmark = $this->Bookmarks->get($id);
+        if($bookmark->user_id==$user['id']){
+            return true;
+        }
+        return parent::isAuthorized($user);
+    }
     /**
      * Index method
      *
@@ -120,4 +137,6 @@ class BookmarksController extends AppController
             'tags'=>$tags
         ]);
     }
+
+
 }

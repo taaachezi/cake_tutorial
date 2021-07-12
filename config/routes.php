@@ -90,7 +90,7 @@ $routes->scope('/', function (RouteBuilder $builder) {
  * ```
  */
 
-Router::scope(
+ Router::scope(
     '/bookmarks',
     ['controller' => 'Bookmarks'],
     function ($routes){
